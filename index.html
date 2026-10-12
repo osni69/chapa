@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#f5f2ed" />
+    <meta
+      name="description"
+      content="Escolha seu smash, acompanhe com uma batata e monte sua sacola na Chapa."
+    />
+    <title>Chapa — Smash & burgers</title>
+    <script>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("chapa-theme") ||
+          (matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+      } catch {}
+    </script>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23d52132'/%3E%3Ctext x='50' y='72' text-anchor='middle' font-size='76' font-family='Georgia' font-style='italic' fill='white'%3Ec%3C/text%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <a class="skip" href="#cardapio">Pular para o cardápio</a>
+    <div class="shell">
+      <header>
+        <button
+          class="burger soft"
+          id="menu-toggle"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          aria-controls="site-menu"
+        >
+          <span></span><span></span><span></span></button
+        ><a href="#inicio" class="brand">chapa<span>smash & burgers</span></a>
+        <nav class="desktop-nav">
+          <a href="#cardapio">Cardápio</a><a href="#combos">Combos</a>
+        </nav>
+        <div class="header-actions">
+          <label class="switch" title="Alternar tema"
+            ><input
+              id="theme"
+              type="checkbox"
+              aria-label="Ativar modo escuro" /><span class="slider"
+              ><span class="circle"
+                ><span class="shine shine-1"></span
+                ><span class="shine shine-2"></span
+                ><span class="shine shine-3"></span
+                ><span class="shine shine-4"></span
+                ><span class="shine shine-5"></span
+                ><span class="shine shine-6"></span
+                ><span class="shine shine-7"></span
+                ><span class="shine shine-8"></span
+                ><span class="moon"></span></span></span></label
+          ><button
+            class="cart-button soft"
+            data-open-cart
+            aria-label="Abrir sacola"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+            >
+              <path d="M5 7h14l1 14H4L5 7Z" />
+              <path d="M8 9V6a4 4 0 0 1 8 0v3" /></svg
+            ><span class="count">0</span>
+          </button>
+        </div>
+        <nav id="site-menu" hidden>
+          <a href="#inicio">Início</a><a href="#cardapio">Cardápio</a
+          ><a href="#combos">Combos</a
+          ><button data-open-cart>Minha sacola</button>
+        </nav>
+      </header>
+      <main id="inicio">
+        <div class="search-row">
+          <label class="search soft"
+            ><svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+            >
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="m16 16 5 5" /></svg
+            ><input
+              id="search"
+              type="search"
+              placeholder="Qual vai ser o de hoje?"
+              aria-label="Buscar no cardápio"
+            /><kbd>/</kbd></label
+          >
+        </div>
+        <section
+          id="search-results"
+          class="search-results"
+          aria-labelledby="search-title"
+          hidden
+        >
+          <div class="search-heading">
+            <div>
+              <h2 id="search-title">Pesquisa</h2>
+              <p id="search-count" aria-live="polite"></p>
+            </div>
+            <button id="clear-search" type="button">Voltar ao cardápio</button>
+          </div>
+          <div class="menu-stage">
+            <div class="menu-grid" id="search-grid"></div>
+          </div>
+        </section>
+        <section class="hero" aria-label="Destaque da casa">
+          <div class="hero-copy">
+            <h1>É PRA<br />SUJAR O<br /><span>GUARDANAPO.</span></h1>
+            <p>Dois smash, cheddar derretido<br />e o nosso molho da casa.</p>
+            <button class="primary" data-add="duplo">
+              Quero o Duplo <span>R$ 32</span>
+            </button>
+          </div>
+        </section>
+        <section id="cardapio" class="menu-section">
+          <div class="menu-heading">
+            <h2>O que vai na sacola?</h2>
+            <span aria-live="polite" id="result-count">4 opções</span>
+          </div>
+          <div
+            class="tabs"
+            role="group"
+            aria-label="Categorias"
+            data-category="burgers"
+          >
+            <button
+              type="button"
+              class="tab"
+              data-category="burgers"
+              aria-pressed="true"
+            >
+              Hambúrgueres
+            </button>
+            <button
+              type="button"
+              class="tab"
+              data-category="sides"
+              aria-pressed="false"
+            >
+              Porções
+            </button>
+            <button
+              type="button"
+              class="tab"
+              data-category="drinks"
+              aria-pressed="false"
+            >
+              Bebidas
+            </button>
+            <span class="glider" aria-hidden="true"></span>
+          </div>
+          <div class="menu-stage">
+            <div class="menu-grid" id="menu-grid"></div>
+          </div>
+          <p class="allergen">
+            Confira os ingredientes se você tem alguma restrição alimentar.
+            Nossa cozinha compartilha utensílios.
+          </p>
+        </section>
+        <section id="combos" aria-label="Combos">
+          <div class="combo">
+            <div>
+              <h2>Hoje é<br />pra dividir.</h2>
+              <p>
+                2 Clássicos + batata da casa<br />+ 2 refrigerantes de cola.
+              </p>
+              <button class="primary" data-add="combo">
+                Adicionar combo <span>R$ 79</span>
+              </button>
+            </div>
+            <div
+              class="combo-image"
+              role="img"
+              aria-label="Hambúrguer com batata frita e refrigerante"
+            ></div>
+          </div>
+          <div class="menu-grid combo-grid" id="combo-grid"></div>
+        </section>
+
+        <footer>
+          <a class="brand" href="#inicio">chapa<span>smash & burgers</span></a>
+          <p>
+            Cardápio demonstrativo de uma hamburgueria fictícia.<br />Não recebe
+            pedidos nem pagamentos reais.
+          </p>
+          <span>© 2026</span>
+        </footer>
+      </main>
+    </div>
+    <nav class="bottom-nav" aria-label="Navegação no celular">
+      <a class="active" href="#inicio" data-section="inicio"
+        ><svg viewBox="0 0 24 24">
+          <path d="m3 10 9-7 9 7v11h-6v-7H9v7H3Z" /></svg
+        ><span>Início</span></a
+      ><a href="#cardapio" data-section="cardapio"
+        ><svg viewBox="0 0 24 24">
+          <rect x="3" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="3" width="7" height="7" rx="1" />
+          <rect x="3" y="14" width="7" height="7" rx="1" />
+          <rect x="14" y="14" width="7" height="7" rx="1" /></svg
+        ><span>Cardápio</span></a
+      ><a
+        class="bottom-brand-card"
+        href="#inicio"
+        aria-label="Chapa — voltar ao início"
+        ><img
+          src="assets/chapa-logo.svg"
+          alt="chapa"
+          width="90"
+          height="64" /></a
+      ><a href="#combos" data-section="combos"
+        ><svg viewBox="0 0 24 24">
+          <path d="M3 3h8l10 10-8 8L3 11Z" />
+          <circle cx="7.5" cy="7.5" r="1" /></svg
+        ><span>Combos</span></a
+      >
+      <button class="bottom-cart" data-open-cart>
+        <svg viewBox="0 0 24 24">
+          <path d="M5 7h14l1 14H4L5 7Z" />
+          <path d="M8 9V6a4 4 0 0 1 8 0v3" /></svg
+        ><span>Sacola <b class="count">0</b></span>
+      </button>
+    </nav>
+    <dialog id="cart" aria-labelledby="cart-title">
+      <div class="cart-header">
+        <h2 id="cart-title">Sua sacola</h2>
+        <button class="close" aria-label="Fechar sacola">×</button>
+      </div>
+      <div id="cart-items"></div>
+      <div class="cart-bottom">
+        <label for="notes">Alguma observação?</label
+        ><textarea
+          id="notes"
+          maxlength="300"
+          placeholder="Ex.: sem cebola, por favor."
+        ></textarea>
+        <div class="total">
+          <span>Total</span><strong id="total">R$ 0,00</strong>
+        </div>
+        <p class="demo-note">
+          Demonstração: o pedido não será enviado nem cobrado.
+        </p>
+        <button id="checkout" class="primary">Revisar pedido</button>
+        <div id="order-summary" hidden></div>
+      </div>
+    </dialog>
+    <div class="toast" role="status" aria-live="polite"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
