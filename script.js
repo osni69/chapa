@@ -649,3 +649,12 @@ addEventListener(
   },
   { passive: true },
 );
+
+// 13. BARRA INFERIOR x TECLADO
+// No celular, o teclado da busca empurra a barra fixa para o meio da tela.
+// Enquanto o campo de busca está em foco, a barra fica escondida.
+{
+  const search = $("#search");
+  search.addEventListener("focus", () => document.body.classList.add("typing"));
+  search.addEventListener("blur", () => document.body.classList.remove("typing"));
+}
